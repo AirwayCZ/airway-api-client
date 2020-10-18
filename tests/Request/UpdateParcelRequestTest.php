@@ -19,7 +19,12 @@ class UpdateParcelRequestTest extends TestCase
                 "externalId" => bin2hex(random_bytes(12)),
             ]
         );
-        $response = $this->client->send($request);
+        try {
+            $response = $this->client->send($request);
+        } catch (\Exception $exception) {
+            var_dump($exception->getCode(), $exception->getMessage());die;
+        }
+
         Assert::assertTrue($response->isOk());
         Assert::assertArrayHasKey('parcelId', $response->getData());
     }

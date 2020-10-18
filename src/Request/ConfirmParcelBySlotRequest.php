@@ -7,19 +7,25 @@ use Airway\Partner\Client\Request;
 
 class ConfirmParcelBySlotRequest implements Request
 {
+    private $slotId;
+
+    public function __construct(string $slotId)
+    {
+        $this->slotId = $slotId;
+    }
+
     public function getUrl(): string
     {
-        // TODO: Implement getUrl() method.
+        return '/parcel/confirm-by-slot';
     }
 
     public function getMethod(): string
     {
-        // TODO: Implement getMethod() method.
+        return 'POST';
     }
 
     public function getPayload(): string
     {
-        // TODO: Implement getPayload() method.
+        return json_encode(['slotId' => $this->slotId]);
     }
-
 }

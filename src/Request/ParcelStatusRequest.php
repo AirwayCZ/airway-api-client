@@ -8,19 +8,27 @@ use Airway\Partner\Client\Request;
 
 class ParcelStatusRequest implements Request
 {
+    /** @var string */
+    private $parcelId;
+
+    public function __construct(string $parcelId)
+    {
+        $this->parcelId = $parcelId;
+    }
+
     public function getUrl(): string
     {
-        // TODO: Implement getUrl() method.
+        return '/parcel/status/' . $this->parcelId;
     }
 
     public function getMethod(): string
     {
-        // TODO: Implement getMethod() method.
+        return 'GET';
     }
 
     public function getPayload(): string
     {
-        // TODO: Implement getPayload() method.
+        return '';
     }
 
 }

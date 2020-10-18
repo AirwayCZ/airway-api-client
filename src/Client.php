@@ -40,7 +40,7 @@ class Client
         }
         $matched = preg_match('#HTTP/\d+\.\d+ (\d+)#', $response->getHeaders()['Status'], $match);
         throw new ServiceException(
-            json_encode($response->getPayload()),
+            $response->getJsonString(),
             $matched ? (int)$match[1] : 0
         );
     }
@@ -70,7 +70,7 @@ class Client
             @file_get_contents($this->environment->getBaseUrl() . $accessToken->getUrl(), false, $context) ?: '{}',
             $http_response_header
         );
-        if($response->isOk()) {
+        if($response->getResponseCode() == 200) {
             $this->storage->store($response->getPayload());
             return;
         }

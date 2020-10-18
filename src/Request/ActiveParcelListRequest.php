@@ -10,17 +10,17 @@ class ActiveParcelListRequest implements Request
 {
     public function getUrl(): string
     {
-        // TODO: Implement getUrl() method.
+        return '/parcel/active';
     }
 
     public function getMethod(): string
     {
-        // TODO: Implement getMethod() method.
+        return 'GET';
     }
 
     public function getPayload(): string
     {
-        // TODO: Implement getPayload() method.
+        return '';
     }
 
 }

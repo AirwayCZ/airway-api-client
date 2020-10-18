@@ -8,6 +8,7 @@ class HttpResponse
     private $json = [];
     private $headers = [];
     private $isOk = false;
+    private $jsonString;
 
     public function __construct(
         string $jsonString,
@@ -26,6 +27,7 @@ class HttpResponse
                 $this->headers['Status'] = $header;
             }
         }
+        $this->jsonString = $jsonString;
     }
 
     public function isOk(): bool
@@ -45,8 +47,20 @@ class HttpResponse
         }
     }
 
+    public function getResponseCode(): int
+    {
+        $matched = preg_match('#HTTP/\d+\.\d+ (\d+)#', $this->getHeaders()['Status'], $match);
+        if($matched) return (int)$match[1];
+        return 0;
+    }
+
     public function getHeaders(): array
     {
         return $this->headers;
+    }
+
+    public function getJsonString(): string
+    {
+        return $this->jsonString;
     }
 }

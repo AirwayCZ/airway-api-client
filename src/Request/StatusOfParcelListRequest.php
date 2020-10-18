@@ -8,19 +8,26 @@ use Airway\Partner\Client\Request;
 
 class StatusOfParcelListRequest implements Request
 {
+    private $parcelIdList;
+
+    public function __construct(array $parcelIdList)
+    {
+        $this->parcelIdList = $parcelIdList;
+    }
+
     public function getUrl(): string
     {
-        // TODO: Implement getUrl() method.
+        return '/parcel/statuses';
     }
 
     public function getMethod(): string
     {
-        // TODO: Implement getMethod() method.
+        return 'POST';
     }
 
     public function getPayload(): string
     {
-        // TODO: Implement getPayload() method.
+        return json_encode(['parcelIdList' => $this->parcelIdList]);
     }
 
 }

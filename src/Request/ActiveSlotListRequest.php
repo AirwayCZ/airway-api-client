@@ -3,24 +3,22 @@ declare(strict_types=1);
 
 namespace Airway\Partner\Client\Request;
 
-
 use Airway\Partner\Client\Request;
 
 class ActiveSlotListRequest implements Request
 {
     public function getUrl(): string
     {
-        // TODO: Implement getUrl() method.
+        return '/parcel/active-slots';
     }
 
     public function getMethod(): string
     {
-        // TODO: Implement getMethod() method.
+        return 'GET';
     }
 
     public function getPayload(): string
     {
-        // TODO: Implement getPayload() method.
+        return '';
     }
-
 }

@@ -19,10 +19,10 @@ trait CommonSetupTrait
         $this->client = new Client(EnvironmentFactory::create());
     }
 
-    protected function createParcel(): HttpResponse
+    protected function createParcel(string $slotId = null): HttpResponse
     {
         $refNum = bin2hex(random_bytes(8));
-        $request = new CreateParcelRequest([
+        $input = [
             "externalId" => $refNum,
             "referenceNumber" => $refNum,
             "vehicleType" => VehicleType::CAR,
@@ -51,7 +51,11 @@ trait CommonSetupTrait
             "sizeZ" => 200,
             "weight" => 3.1,
             "amountOfPackages" => 1,
-        ]);
+        ];
+        if(isset($slotId)) {
+            $input['slotId'] = $slotId;
+        }
+        $request = new CreateParcelRequest($input);
 
         return $this->client->send($request);
     }
