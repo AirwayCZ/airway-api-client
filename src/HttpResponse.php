@@ -18,23 +18,31 @@ class HttpResponse
         foreach ($headers as $header) {
             if ($header == 'HTTP/1.1 200 OK') {
                 $this->isOk = true;
-                continue;
             }
             $strpos = strpos($header, ': ');
-            if ($strpos != 0) {
+            if ($strpos !== false) {
                 $this->headers[substr($header, 0, $strpos)] = substr($header, $strpos + 2);
+            } else {
+                $this->headers['Status'] = $header;
             }
         }
     }
 
     public function isOk(): bool
     {
-        return $this->isOk;
+        return $this->isOk && isset($this->json['ok']) && $this->json['ok'];
     }
 
-    public function getJson(): array
+    public function getPayload(): array
     {
         return $this->json;
+    }
+
+    public function getData(): array
+    {
+        if(isset($this->json['data'])) {
+            return $this->json['data'];
+        }
     }
 
     public function getHeaders(): array

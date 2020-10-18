@@ -38,7 +38,11 @@ class Client
         if($response->isOk()) {
             return $response;
         }
-        throw new ServiceException(json_encode($response->getJson()));
+        $matched = preg_match('#HTTP/\d+\.\d+ (\d+)#', $response->getHeaders()['Status'], $match);
+        throw new ServiceException(
+            json_encode($response->getPayload()),
+            $matched ? (int)$match[1] : 0
+        );
     }
 
     private function getAccessToken(): string
@@ -67,7 +71,7 @@ class Client
             $http_response_header
         );
         if($response->isOk()) {
-            $this->storage->store($response->getJson());
+            $this->storage->store($response->getPayload());
             return;
         }
         throw new AuthorizationException("Invalid authorization");

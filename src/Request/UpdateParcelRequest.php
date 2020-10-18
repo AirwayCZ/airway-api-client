@@ -7,19 +7,29 @@ use Airway\Partner\Client\Request;
 
 class UpdateParcelRequest implements Request
 {
+    private $payload = [];
+    /** @var string */
+    private $parcelId;
+
+    public function __construct(string $parcelId, array $input)
+    {
+        $this->parcelId = $parcelId;
+        $this->payload = $input;
+    }
+
     public function getUrl(): string
     {
-        // TODO: Implement getUrl() method.
+        return '/parcel/update/' . $this->parcelId;
     }
 
     public function getMethod(): string
     {
-        // TODO: Implement getMethod() method.
+        return 'POST';
     }
 
     public function getPayload(): string
     {
-        // TODO: Implement getPayload() method.
+        return json_encode($this->payload);
     }
 
 }

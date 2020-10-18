@@ -15,7 +15,7 @@ class QuoteRequest implements Request
     public function __construct(array $input)
     {
         $this->validateInput($input);
-        $this->payload = array_replace_recursive($this->getExampleInput(), $input);
+        $this->payload = $input;
     }
 
 
@@ -34,36 +34,6 @@ class QuoteRequest implements Request
         return json_encode($this->payload);
     }
 
-    private function getExampleInput(): array
-    {
-        $json = <<<JSON
-{
-  "vehicleType": 20,
-  "pickupAddress": {
-    "address": "Za strašnickou vozovnou 1343/6",
-    "city": "Praha",
-    "postcode": "10000",
-    "countryCode": "CZ"
-  },    
-  "deliveryAddress": {
-     "address": "Drahobejlova 36",
-     "city": "Praha 9",
-     "postcode": "19000",
-     "countryCode": "CZ"
-  },
-  "earliestPickupTime": "2020-01-04 08:30:00",  
-  "deliveryDeadline": "2020-01-04 12:00:00",
-  "hasCashOnDelivery": false,  
-  "sizeX": 0,
-  "sizeY": 0,
-  "sizeZ": 0,
-  "weight": 1.0,
-  "amountOfPackages": 1
-}
-JSON;
-        return json_decode($json, true);
-    }
-
     /**
      * @param array $input
      * @throws InvalidInputException
@@ -77,6 +47,11 @@ JSON;
             "earliestPickupTime",
             "deliveryDeadline",
             "hasCashOnDelivery",
+            "sizeX",
+            "sizeY",
+            "sizeZ",
+            "weight",
+            "amountOfPackages",
         ];
         Assert::allKeysAreRequired($input, $required);
         Assert::validAddress($input["pickupAddress"]);

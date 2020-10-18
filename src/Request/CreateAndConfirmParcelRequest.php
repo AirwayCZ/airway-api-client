@@ -3,23 +3,10 @@ declare(strict_types=1);
 
 namespace Airway\Partner\Client\Request;
 
-use Airway\Partner\Client\Request;
-
-class CreateAndConfirmParcelRequest implements Request
+class CreateAndConfirmParcelRequest extends CreateParcelRequest
 {
     public function getUrl(): string
     {
-        // TODO: Implement getUrl() method.
+        return '/parcel/create-and-confirm';
     }
-
-    public function getMethod(): string
-    {
-        // TODO: Implement getMethod() method.
-    }
-
-    public function getPayload(): string
-    {
-        // TODO: Implement getPayload() method.
-    }
-
 }

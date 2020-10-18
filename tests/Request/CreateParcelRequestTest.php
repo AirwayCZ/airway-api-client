@@ -3,33 +3,34 @@ declare(strict_types=1);
 
 namespace Airway\Partner\Client\Request;
 
-use Airway\Partner\Client\Client;
-use Airway\Partner\Client\Fixture\EnvironmentFactory;
-use Airway\Partner\Client\HttpResponse;
+use Airway\Partner\Client\Value\PaymentType;
 use Airway\Partner\Client\Value\VehicleType;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
-class QuoteRequestTest extends TestCase
+class CreateParcelRequestTest extends TestCase
 {
-    /** @var Client */
-    private $client;
 
-    protected function setUp()
-    {
-        $this->client = new Client(EnvironmentFactory::create());
-    }
+    use CommonSetupTrait;
 
-    public function testSendRequest()
+    public function testSendRequest(): void
     {
-        $request = new QuoteRequest([
+        $refNum = bin2hex(random_bytes(8));
+        $request = new CreateParcelRequest([
+            "externalId" => $refNum,
+            "referenceNumber" => $refNum,
             "vehicleType" => VehicleType::CAR,
+            "paymentType" => PaymentType::MONTHLY_BILL,
+            "pickupContact" => "Jan Novak",
+            "pickupPhone" => "+420 601 330 241",
             "pickupAddress" => [
                 "address" => "Zubrnicka 1",
                 "city" => "Praha",
                 "postcode" => "",
                 "countryCode" => "CZ",
             ],
+            "deliveryContact" => "John Doe",
+            "deliveryPhone" => "+420 601 330241",
             "deliveryAddress" => [
                 "address" => "Za strasnickou vozovnou 6",
                 "city" => "Praha",
@@ -39,16 +40,17 @@ class QuoteRequestTest extends TestCase
             "earliestPickupTime" => (new \DateTime('next weekday 08:00'))->format('c'),
             "deliveryDeadline" => (new \DateTime('next weekday 12:00'))->format('c'),
             "hasCashOnDelivery" => false,
-            "sizeX" => 100,
-            "sizeY" => 100,
-            "sizeZ" => 10,
-            "weight" => 0.01,
+            "sizeX" => 1200,
+            "sizeY" => 300,
+            "sizeZ" => 200,
+            "weight" => 3.1,
             "amountOfPackages" => 1,
         ]);
 
         $response = $this->client->send($request);
-        Assert::assertInstanceOf(HttpResponse::class, $response);
+
         Assert::assertTrue($response->isOk());
         Assert::assertTrue($response->getPayload()['ok']);
+        Assert::assertArrayHasKey('parcelId', $response->getData());
     }
 }
