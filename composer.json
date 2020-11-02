@@ -1,5 +1,5 @@
 {
-  "name": "AirwayCZ/airway-api-client",
+  "name": "airway-cz/airway-api-client",
   "description": "PHP implementation of connection to API interface of AirwayCZ delivery service.",
   "homepage": "https://www.airway.cz",
 
