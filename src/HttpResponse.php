@@ -17,7 +17,7 @@ class HttpResponse
     {
         $this->json = \json_decode($jsonString, true) ?: [];
         foreach ($headers as $header) {
-            if ($header == 'HTTP/1.1 200 OK' || $header == ''HTTP/1.0 200 OK'') {
+            if ($header == 'HTTP/1.1 200 OK' || $header == 'HTTP/1.0 200 OK') {
                 $this->isOk = true;
             }
             $strpos = strpos($header, ': ');
