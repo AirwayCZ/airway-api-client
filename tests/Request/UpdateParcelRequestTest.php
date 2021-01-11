@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Airway\Partner\Client\Request;
 
+use Airway\Partner\Client\Value\VehicleType;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
@@ -17,6 +18,7 @@ class UpdateParcelRequestTest extends TestCase
             $parcelResponse->getData()['parcelId'],
             [
                 "externalId" => bin2hex(random_bytes(12)),
+                "vehicleType" => VehicleType::CAR,
             ]
         );
         try {
