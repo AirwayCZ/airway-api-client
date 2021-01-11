@@ -5,5 +5,5 @@ namespace Airway\Partner\Client\Environment;
 
 class Sandbox extends AbstractEnvironment
 {
-    protected $baseUrl = 'https://sandbox.airway.cz/api.partner.v1';
+    protected $baseUrl = 'http://airway.cz:6080/api.partner.v1';
 }
