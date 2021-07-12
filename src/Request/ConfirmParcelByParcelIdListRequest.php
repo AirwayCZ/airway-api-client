@@ -17,7 +17,6 @@ class ConfirmParcelByParcelIdListRequest implements Request
         array $parcelIdList
     )
     {
-        Assert::allIsInstanceOf($parcelIdList, 'string');
         $this->parcelIdList = $parcelIdList;
     }
 
