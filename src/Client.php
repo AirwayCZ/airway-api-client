@@ -21,7 +21,9 @@ class Client
     )
     {
         $this->environment = $environment;
-        $this->storage = $storage ?: new FileTokenStorage();
+        $this->storage = $storage ?: new FileTokenStorage(
+            __DIR__ . '/../storage/' . $environment->getClientId() . '-accessToken.json'
+        );
     }
 
     public function send(Request $request)
