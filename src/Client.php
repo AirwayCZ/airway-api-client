@@ -64,6 +64,8 @@ class Client
                 'ignore_errors' => true,
                 'method'  => 'POST',
                 'header'  => 'Content-Type: application/x-www-form-urlencoded',
+                'ssl' => false,
+                'verify_peer_name' => false,
                 'content' => $accessToken->getPayload(),
             ]
         ];
@@ -87,6 +89,8 @@ class Client
                 'method' => $request->getMethod(),
                 'header' => "Content-Type: application/json\r\n" .
                     "Authorization: Bearer {$this->getAccessToken()}\r\n",
+                'ssl' => false,
+                'verify_peer_name' => false,
                 'content' => $request->getPayload(),
             ]
         ];
